@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Video Downloader",
+  "description": "Find direct video sources on the current page and download media you have permission to save.",
+  "version": "0.1.0",
+  "permissions": ["activeTab", "downloads", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Video Downloader",
+    "default_popup": "popup.html"
+  }
+}
