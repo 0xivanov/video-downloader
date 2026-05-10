@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Downloader</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Video Downloader</h1>
+        <p id="pageLabel">Current page</p>
+      </div>
+      <button id="refreshButton" class="icon-button" type="button" title="Rescan page" aria-label="Rescan page">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <div id="status" class="status">Scanning page...</div>
+      <ul id="videoList" class="video-list" aria-live="polite"></ul>
+    </main>
+
+    <template id="videoTemplate">
+      <li class="video-item">
+        <div class="video-meta">
+          <div class="video-title"></div>
+          <div class="video-details"></div>
+          <a class="video-url" href="#" target="_blank" rel="noreferrer"></a>
+        </div>
+        <div class="video-actions">
+          <button class="download-button" type="button">Download</button>
+          <button class="copy-button" type="button">Copy URL</button>
+        </div>
+      </li>
+    </template>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
