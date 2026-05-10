@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 });
 
 function isDownloadableUrl(url) {
-  return /^https?:\/\//i.test(url) || /^data:video\//i.test(url);
+  return /^https?:\/\//i.test(url) || /^data:video\//i.test(url) || /^blob:/i.test(url);
 }
 
 function guessFilename(url) {

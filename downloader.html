@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HLS Downloader</title>
+    <link rel="stylesheet" href="downloader.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="header">
+        <div>
+          <h1>HLS Downloader</h1>
+          <p id="pageTitle">Stream download</p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <label class="field">
+          <span>Playlist URL</span>
+          <input id="urlInput" type="url" autocomplete="off" spellcheck="false">
+        </label>
+
+        <div class="controls">
+          <label class="field quality-field">
+            <span>Quality</span>
+            <select id="qualitySelect" disabled>
+              <option>Auto</option>
+            </select>
+          </label>
+          <button id="analyzeButton" type="button">Analyze</button>
+          <button id="downloadButton" type="button" disabled>Save Video</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div id="summary" class="summary">Waiting for playlist analysis...</div>
+        <progress id="progress" value="0" max="1"></progress>
+        <div id="status" class="status">Ready.</div>
+      </section>
+    </main>
+
+    <script src="downloader.js"></script>
+  </body>
+</html>

@@ -12,6 +12,7 @@ const MEDIA_EXTENSIONS = [
 ];
 
 const STREAM_EXTENSIONS = new Set(["m3u8", "mpd"]);
+const HLS_EXTENSION = "m3u8";
 const DIRECT_DOWNLOAD_PROTOCOLS = new Set(["http:", "https:"]);
 
 const statusEl = document.querySelector("#status");
@@ -42,7 +43,10 @@ async function scanCurrentTab() {
       args: [MEDIA_EXTENSIONS]
     });
 
-    const videos = uniqueVideos(injections.flatMap((result) => result.result || []));
+    const videos = uniqueVideos([
+      currentTabMedia(tab),
+      ...injections.flatMap((result) => result.result || [])
+    ]);
     renderVideos(videos);
   } catch (error) {
     setStatus(
@@ -66,7 +70,8 @@ function renderVideos(videos) {
     const item = template.content.firstElementChild.cloneNode(true);
     const extension = getExtension(video.url);
     const isStream = STREAM_EXTENSIONS.has(extension);
-    const isDownloadable = canDownload(video.url) && !isStream;
+    const isHlsStream = extension === HLS_EXTENSION;
+    const isDownloadable = canDownload(video.url) && (!isStream || isHlsStream);
 
     item.querySelector(".video-title").textContent = video.title || makeTitle(video.url);
     item.querySelector(".video-details").textContent = [
@@ -83,11 +88,20 @@ function renderVideos(videos) {
 
     const downloadButton = item.querySelector(".download-button");
     downloadButton.disabled = !isDownloadable;
-    downloadButton.textContent = isStream ? "Stream URL" : "Download";
-    downloadButton.title = isStream
-      ? "HLS/DASH streams need a media tool such as ffmpeg; this extension copies the stream URL."
+    downloadButton.textContent = isHlsStream ? "Download HLS" : isStream ? "Stream URL" : "Download";
+    downloadButton.title = isHlsStream
+      ? "Download an unencrypted HLS stream by combining its media segments."
+      : isStream
+      ? "DASH streams need a media tool such as ffmpeg; this extension copies the stream URL."
       : "Download this direct video URL";
-    downloadButton.addEventListener("click", () => downloadVideo(video));
+    downloadButton.addEventListener("click", () => {
+      if (isHlsStream) {
+        openHlsDownloader(video);
+        return;
+      }
+
+      downloadVideo(video);
+    });
 
     const copyButton = item.querySelector(".copy-button");
     copyButton.addEventListener("click", async () => {
@@ -113,6 +127,17 @@ async function downloadVideo(video) {
   setStatus(response?.error || "Download failed.", true);
 }
 
+function openHlsDownloader(video) {
+  const params = new URLSearchParams({
+    url: video.url,
+    title: video.title || makeTitle(video.url)
+  });
+
+  chrome.tabs.create({
+    url: chrome.runtime.getURL(`downloader.html?${params.toString()}`)
+  });
+}
+
 function setStatus(message, warning = false) {
   statusEl.hidden = false;
   statusEl.textContent = message;
@@ -125,6 +150,20 @@ function flashButton(button, label) {
   window.setTimeout(() => {
     button.textContent = previous;
   }, 1200);
+}
+
+function currentTabMedia(tab) {
+  const extension = getExtension(tab.url || "");
+  if (!MEDIA_EXTENSIONS.includes(extension)) {
+    return null;
+  }
+
+  return {
+    url: tab.url,
+    source: "current tab",
+    title: tab.title,
+    type: ""
+  };
 }
 
 function uniqueVideos(videos) {
