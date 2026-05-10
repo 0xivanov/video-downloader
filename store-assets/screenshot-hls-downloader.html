@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Downloader Screenshot - HLS</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --panel: #ffffff;
+        --text: #172033;
+        --muted: #667085;
+        --line: #d9e1ec;
+        --accent: #db2cc4;
+        --accent-strong: #a616c2;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(219,44,196,0.08), transparent 34%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      .shell {
+        width: 940px;
+        margin: 0 auto;
+        padding: 56px 0;
+      }
+
+      .brandline {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+
+      .icon {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(180deg, var(--accent-strong), var(--accent));
+        color: #fff;
+        font-size: 25px;
+        font-weight: 800;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 34px;
+        letter-spacing: 0;
+      }
+
+      p {
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .panel {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 14px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 20px 70px rgba(17,24,39,0.08);
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      .field span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      input,
+      select,
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font: inherit;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 8px 10px;
+        background: #ffffff;
+        color: var(--text);
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) auto auto;
+        gap: 10px;
+        align-items: end;
+      }
+
+      button {
+        padding: 8px 14px;
+        background: #ffffff;
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      .primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .summary {
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .progress {
+        height: 14px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e5e7eb;
+      }
+
+      .bar {
+        width: 68%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+      }
+
+      .status {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f8fafc;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .foot {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 26px;
+      }
+
+      .metric {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255,255,255,0.8);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 20px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="brandline">
+        <div class="icon">↓</div>
+        <div>
+          <h1>Save HLS Streams</h1>
+          <p>Choose a rendition, stream segments to disk, and keep the system awake during long saves.</p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <label class="field">
+          <span>Playlist URL</span>
+          <input value="https://stream.mux.com/As2qTxAw00b5Iu7TIBDYliBnsjml01o02MIjZ5AwibY44Q.m3u8">
+        </label>
+        <div class="controls">
+          <label class="field">
+            <span>Quality</span>
+            <select>
+              <option>1920x1080 - 4.7 Mbps</option>
+            </select>
+          </label>
+          <button>Analyze</button>
+          <button class="primary">Save Video</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="summary">1920x1080 - 4.7 Mbps; 2h 13m 42s; 2011 media segments; saving as .ts.</div>
+        <div class="progress"><div class="bar"></div></div>
+        <div class="status">Downloading segment 1368 of 2011 (1.24 GB)...</div>
+      </section>
+
+      <section class="foot">
+        <div class="metric"><strong>HLS</strong><span>Unencrypted .m3u8 playlists</span></div>
+        <div class="metric"><strong>Direct</strong><span>MP4 and WebM downloads</span></div>
+        <div class="metric"><strong>Awake</strong><span>Prevents idle sleep while saving</span></div>
+      </section>
+    </main>
+  </body>
+</html>
