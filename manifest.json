@@ -3,13 +3,18 @@
   "name": "Video Downloader",
   "description": "Find direct video sources on the current page and download media you have permission to save.",
   "version": "0.1.0",
-  "permissions": ["activeTab", "downloads", "power", "scripting"],
+  "icons": {
+    "128": "icon128.png"
+  },
+  "permissions": ["activeTab", "downloads", "power", "sidePanel", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
   "action": {
-    "default_title": "Video Downloader",
-    "default_popup": "popup.html"
+    "default_title": "Video Downloader"
   }
 }

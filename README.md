@@ -15,10 +15,11 @@ This extension is for downloading videos you own or have permission to save. It 
 
 1. Open a page with a video.
 2. Play the video for a few seconds if nothing appears at first.
-3. Click the extension icon.
+3. Click the extension icon to open the side panel.
 4. Click **Download** for direct files such as `.mp4` or `.webm`.
-5. Click **Download HLS** for unencrypted `.m3u8` playlists, then choose a quality and save location in the downloader tab.
-6. Use **Copy URL** for unsupported stream manifests such as `.mpd`.
+5. Choose a quality from the HLS dropdown when variants are available.
+6. Click **Download HLS** for unencrypted `.m3u8` playlists, then choose a save location in the downloader tab.
+7. Use **Copy URL** for unsupported stream manifests such as `.mpd`.
 
 ## Limitations
 
